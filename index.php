@@ -42,8 +42,6 @@
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en" data-bs-theme='dark'>
 <head>
@@ -59,20 +57,33 @@
     <h1 class="text-primary my-4 text-center fw-bolder">Hotels</h1>
     <hr>
 
+    <form action="index.php" method="GET" class="d-block mx-auto text-center my-4">
+        <label for="radio-filter" class="me-2">Only Hotels With A Parking Lot</label>
+        <input type="checkbox" id="radio-filter" name="parking_lotto">
+        <button type="submit" class="btn btn-warning fs-6 ms-3">GET RESULTS</button>
+    </form>
+
     <div class="w-75 mx-auto">
         <table class="table text-center">
             <thead>
                 <tr>
-                    <th scope="col" class="text-primary">Name</th>
-                    <th scope="col" class="text-primary">Description</th>
-                    <th scope="col" class="text-primary">Parking</th>
-                    <th scope="col" class="text-primary">Vote</th>
-                    <th scope="col" class="text-primary">Distance To Center</th>
+                    <th scope="col" class="text-primary text-uppercase">Name</th>
+                    <th scope="col" class="text-primary text-uppercase">Description</th>
+                    <th scope="col" class="text-primary text-uppercase">Parking</th>
+                    <th scope="col" class="text-primary text-uppercase">Vote</th>
+                    <th scope="col" class="text-primary text-uppercase">Distance To Center</th>
                 </tr>
             </thead>
             <tbody>
 
                 <?php foreach ($hotels as $element):?>
+
+                    <?php 
+                        if(isset($_GET['parking_lotto']) && $_GET['parking_lotto'] !== '' && $element['parking'] != $_GET['parking_lotto'] = 1){
+                            continue;
+                        }
+                    ?>
+
                 <tr>
                     <td><?php echo $element['name']?></td>
                     <td><?php echo $element['description']?></td>
@@ -80,13 +91,13 @@
                     <td><?php echo $element['vote']?></td>
                     <td><?php echo $element['distance_to_center']?></td>
                 </tr>
+
                 <?php endforeach; ?>
 
             </tbody>
         </table>
     </div>
     
-
     <!-- link bs js  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
